@@ -1,0 +1,532 @@
+{
+    "0": {
+        "BKeySelection": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        "EdgeCategory": [
+            3,
+            3,
+            4,
+            6,
+            4
+        ],
+        "GPR":3.5,
+        "OptimisationParameters": {
+            "CrossOverRate": 0.9,
+            "GenerationCount": 2,
+            "MutationRate": 0.4,
+            "ObjectiveWeights": null,
+            "PopulationCount": 2
+        },
+        "ParameterRanges": 
+            {
+                "BKeyXScale": [
+                    0.3,
+                    1
+                ],
+                "BKeyYScale": [
+                    0.3,
+                    1
+                ],
+                "GridAngle": [
+                    54,
+                    108
+                ],
+                "GridSpacing": [
+                    25,
+                    30
+                ],
+                "ParcelStoreyScale": [
+                    0.2,
+                    0.8
+                ]
+            }
+        ,
+        "ParcelCoordinates": [
+            [
+                11572007.4056,
+                150403.316735,
+                0.0
+            ],
+            [
+                11572051.3651,
+                150426.139893,
+                0.0
+            ],
+            [
+                11572107.1755,
+                150495.54219,
+                0.0
+            ],
+            [
+                11572052.0453,
+                150567.716492,
+                0.0
+            ],
+            [
+                11571951.9101,
+                150510.205851,
+                0.0
+            ],
+            [
+                11572007.4056,
+                150403.316735,
+                0.0
+            ]
+        ]
+    },
+    "1": {
+        "BKeySelection": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        "EdgeCategory": [
+            4,
+            3,
+            6,
+            6,
+            4,
+            6
+        ],
+        "GPR":3.5,
+        "OptimisationParameters": {
+            "CrossOverRate": 0.9,
+            "GenerationCount": 2,
+            "MutationRate": 0.4,
+            "ObjectiveWeights": null,
+            "PopulationCount": 2
+        },
+        "ParameterRanges": 
+            {
+                "BKeyXScale": [
+                    0.3,
+                    1
+                ],
+                "BKeyYScale": [
+                    0.3,
+                    1
+                ],
+                "GridAngle": [
+                    54,
+                    108
+                ],
+                "GridSpacing": [
+                    25,
+                    30
+                ],
+                "ParcelStoreyScale": [
+                    0.2,
+                    0.8
+                ]
+            }
+        ,
+        "ParcelCoordinates": [
+            [
+                11572051.671,
+                150567.50154,
+                0.0
+            ],
+            [
+                11572015.5705,
+                150716.981226,
+                0.0
+            ],
+            [
+                11571952.7707,
+                150718.466468,
+                0.0
+            ],
+            [
+                11571950.7266,
+                150599.956609,
+                0.0
+            ],
+            [
+                11571917.6144,
+                150559.704892,
+                0.0
+            ],
+            [
+                11571951.9314,
+                150510.218046,
+                0.0
+            ],
+            [
+                11572051.671,
+                150567.50154,
+                0.0
+            ]
+        ]
+    },
+    "2": {
+        "BKeySelection": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        "EdgeCategory": [
+            6,
+            6,
+            3,
+            4,
+            4,
+            4
+        ],
+        "GPR":3.5,
+        "OptimisationParameters": {
+            "CrossOverRate": 0.9,
+            "GenerationCount": 2,
+            "MutationRate": 0.4,
+            "ObjectiveWeights": null,
+            "PopulationCount": 2
+        },
+        "ParameterRanges": 
+            {
+                "BKeyXScale": [
+                    0.3,
+                    1
+                ],
+                "BKeyYScale": [
+                    0.3,
+                    1
+                ],
+                "GridAngle": [
+                    54,
+                    108
+                ],
+                "GridSpacing": [
+                    25,
+                    30
+                ],
+                "ParcelStoreyScale": [
+                    0.2,
+                    0.8
+                ]
+            }
+        ,
+        "ParcelCoordinates": [
+            [
+                11571917.3912,
+                150559.433487,
+                0.0
+            ],
+            [
+                11571950.7266,
+                150599.956609,
+                0.0
+            ],
+            [
+                11571952.7707,
+                150718.466468,
+                0.0
+            ],
+            [
+                11571858.5361,
+                150720.695155,
+                0.0
+            ],
+            [
+                11571867.335,
+                150603.668672,
+                0.0
+            ],
+            [
+                11571864.7728,
+                150600.55395,
+                0.0
+            ],
+            [
+                11571917.3912,
+                150559.433487,
+                0.0
+            ]
+        ]
+    },
+    "3": {
+        "BKeySelection": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        "EdgeCategory": [
+            4,
+            6,
+            4,
+            4,
+            3
+        ],
+        "GPR":1.8,
+        "OptimisationParameters": {
+            "CrossOverRate": 0.9,
+            "GenerationCount": 2,
+            "MutationRate": 0.4,
+            "ObjectiveWeights": null,
+            "PopulationCount": 2
+        },
+        "ParameterRanges": 
+            {
+                "BKeyXScale": [
+                    0.3,
+                    1
+                ],
+                "BKeyYScale": [
+                    0.3,
+                    1
+                ],
+                "GridAngle": [
+                    54,
+                    108
+                ],
+                "GridSpacing": [
+                    25,
+                    30
+                ],
+                "ParcelStoreyScale": [
+                    0.2,
+                    0.8
+                ]
+            }
+        ,
+        "ParcelCoordinates": [
+            [
+                11571991.4304,
+                150395.022619,
+                0.0
+            ],
+            [
+                11571936.1484,
+                150501.500596,
+                0.0
+            ],
+            [
+                11571835.0633,
+                150447.858891,
+                0.0
+            ],
+            [
+                11571854.6357,
+                150413.13943,
+                0.0
+            ],
+            [
+                11571876.3644,
+                150335.281941,
+                0.0
+            ],
+            [
+                11571991.4304,
+                150395.022619,
+                0.0
+            ]
+        ]
+    },
+    "4": {
+        "BKeySelection": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        "EdgeCategory": [
+            4,
+            4,
+            6,
+            4,
+            4
+        ],
+        "GPR":3.0,
+        "OptimisationParameters": {
+            "CrossOverRate": 0.9,
+            "GenerationCount": 2,
+            "MutationRate": 0.4,
+            "ObjectiveWeights": null,
+            "PopulationCount": 2
+        },
+        "ParameterRanges": 
+            {
+                "BKeyXScale": [
+                    0.3,
+                    1
+                ],
+                "BKeyYScale": [
+                    0.3,
+                    1
+                ],
+                "GridAngle": [
+                    54,
+                    108
+                ],
+                "GridSpacing": [
+                    25,
+                    30
+                ],
+                "ParcelStoreyScale": [
+                    0.2,
+                    0.8
+                ]
+            }
+        ,
+        "ParcelCoordinates": [
+            [
+                11571853.334,
+                150586.648635,
+                0.0
+            ],
+            [
+                11571796.0673,
+                150517.033448,
+                0.0
+            ],
+            [
+                11571835.0633,
+                150447.858891,
+                0.0
+            ],
+            [
+                11571936.0926,
+                150501.470999,
+                0.0
+            ],
+            [
+                11571905.0541,
+                150546.230207,
+                0.0
+            ],
+            [
+                11571853.334,
+                150586.648635,
+                0.0
+            ]
+        ]
+    },
+    "5": {
+        "BKeySelection": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        "EdgeCategory": [
+            4,
+            3,
+            3,
+            4,
+            5,
+            5
+        ],
+        "GPR":2.5,
+        "OptimisationParameters": {
+            "CrossOverRate": 0.9,
+            "GenerationCount": 2,
+            "MutationRate": 0.4,
+            "ObjectiveWeights": null,
+            "PopulationCount": 2
+        },
+        "ParameterRanges": 
+            {
+                "BKeyXScale": [
+                    0.3,
+                    1
+                ],
+                "BKeyYScale": [
+                    0.3,
+                    1
+                ],
+                "GridAngle": [
+                    54,
+                    108
+                ],
+                "GridSpacing": [
+                    25,
+                    30
+                ],
+                "ParcelStoreyScale": [
+                    0.2,
+                    0.8
+                ]
+            }
+        ,
+        "ParcelCoordinates": [
+            [
+                11572079.8543,
+                150574.142243,
+                0.0
+            ],
+            [
+                11572123.9547,
+                150516.407737,
+                0.0
+            ],
+            [
+                11572185.424,
+                150592.847104,
+                0.0
+            ],
+            [
+                11572224.3762,
+                150712.042885,
+                0.0
+            ],
+            [
+                11572128.8054,
+                150714.303173,
+                0.0
+            ],
+            [
+                11572115.2708,
+                150596.992646,
+                0.0
+            ],
+            [
+                11572079.8543,
+                150574.142243,
+                0.0
+            ]
+        ]
+    },
+    "6": {
+        "BKeySelection": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        "EdgeCategory": [
+            4,
+            5,
+            5,
+            4
+        ],
+        "GPR":1.8,
+        "OptimisationParameters": {
+            "CrossOverRate": 0.9,
+            "GenerationCount": 2,
+            "MutationRate": 0.4,
+            "ObjectiveWeights": null,
+            "PopulationCount": 2
+        },
+        "ParameterRanges": 
+            {
+                "BKeyXScale": [
+                    0.3,
+                    1
+                ],
+                "BKeyYScale": [
+                    0.3,
+                    1
+                ],
+                "GridAngle": [
+                    54,
+                    108
+                ],
+                "GridSpacing": [
+                    25,
+                    30
+                ],
+                "ParcelStoreyScale": [
+                    0.2,
+                    0.8
+                ]
+            }
+        ,
+        "ParcelCoordinates": [
+            [
+                11572042.4716,
+                150716.345003,
+                0.0
+            ],
+            [
+                11572072.7485,
+                150590.978969,
+                0.0
+            ],
+            [
+                11572098.3644,
+                150607.50607,
+                0.0
+            ],
+            [
+                11572110.7353,
+                150714.730538,
+                0.0
+            ],
+            [
+                11572042.4716,
+                150716.345003,
+                0.0
+            ]
+        ]
+    }
+}
