@@ -2,23 +2,92 @@ const {readFile, readFileSync} = require('fs');
 const cors = require('cors')
 const spawner = require('child_process').spawn;
 const express = require('express');
+const bcrypt = require('bcrypt');
+const passport = require('passport');
+const flash = require('express-flash')
+const session = require('express-session')
+
 var stash = []
+
+//for testing/ single user password just store here can already
+const users = [
+    {
+        "username": "admin",
+        "password": "adminpw"
+    },
+    {
+        "username": "user",
+        "password": "userpw"
+    }
+]
+
+function getUserbyUsername(username){
+    return users.find(user => user.username === username)
+}
 
 // start express server at localhost 3000
 const app = express();
-app.listen(3000, () => console.log('http://localhost:3000'))
+app.set('view-engine', 'ejs');
+app.listen(3000, () => console.log('http://localhost:3000'));
 app.use(cors({origin:'http://localhost:3000', credentials : true}));
 
 // import libraries
 app.use('/static', express.static('./static'))
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//set up flash and sessions
+app.use(flash())
+
+app.use(session({
+    secret: 'my-secret-key',
+    resave: false,
+    saveUinitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+
+//initialise passport
+const initializePassport = require('./static/controllers/passport-config');
+initializePassport(
+    passport,
+    getUserbyUsername
+);
+
+//check if ont authenticated
+function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return res.redirect('/home');
+    }
+    next();
+  }
+
+//default login page
+app.get('/', checkNotAuthenticated, async (request, response) => {
+    response.render("login.ejs")
+})
+
+app.post('/', checkNotAuthenticated, passport.authenticate('local', {
+    successRedirect: '/home',
+    failureFlash: true
+}))
+
+
+//check authentication
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/');
+  }
 
 // server immidiately 'gets' home.html and send it to client browser.
-app.get('/', (request, response) => {
+app.get('/home', checkAuthenticated, (request, response) => {
     readFile('./index.html','utf8', (err,html) => {
         response.send(html)
     })
 });
+
 
 // get boundary road cat.
 app.post('/api_roadCat', (request,response) => {
