@@ -19,6 +19,7 @@ async function useRoadData(Graphic, Polygon){
     .then(function(text){
       let roadCat = JSON.parse(text).toString().split(",")
       runOptimization(Graphic, Polygon, roadCat)
+      document.getElementById("saveAction").style.display = "block"
     })
     // runOptimization(Graphic, Polygon,[5,5,5,5])
 }

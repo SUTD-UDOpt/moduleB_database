@@ -32,6 +32,7 @@ function toState0() {
     state = 0
     setComponentDisplay([0, 1, 1])
     document.getElementById("actionButton").innerHTML = "Generate Building Geometry"
+    document.getElementById("saveAction").style.display = "none"
 }
 
 function toState1() {
