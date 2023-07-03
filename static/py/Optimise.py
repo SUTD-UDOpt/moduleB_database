@@ -43,8 +43,8 @@ except:
     print('Error importing libraries')
 
 try:
-    siteGenerationOutput = json.loads(sys.argv[1])
-    #siteGenerationOutput = json.load(open('.\\Static\\data\\sample_SiteGeneration_output.json'))
+    #siteGenerationOutput = json.loads(sys.argv[1])
+    siteGenerationOutput = json.load(open('.\\static\\misc\\sample_SiteGeneration_output.json'))
     OptimisationParameters = siteGenerationOutput[list(siteGenerationOutput.keys())[0]]['OptimisationParameters']
     ParameterRanges = siteGenerationOutput[list(siteGenerationOutput.keys())[0]]['ParameterRanges']
     XKeys = list(['BKeyXScale', 'BKeyYScale', 'GridAngle', 'GridSpacing', 'ParcelStoreyScale'])
@@ -119,34 +119,42 @@ except Exception as e:
 try:
     MyAlgorithm.setup(MyProblem, termination=MyTermination, seed=random.randint(0, 2**10),save_history=True, verbose=False)
 
-    #timestamp for each optimisation
-    tzs = pytz.timezone("Singapore")
-    ts = dt.now(tzs) #default timezone utc
+    # stringified timestamp for each optimisation
+    ts = dt.now(pytz.timezone("Singapore")).strftime("%Y-%m-%d %H-%M-%S") #default timezone utc
 
-    ##uuid for each optimisation
-    session_id = uuid.uuid4()
+    # stringified uuid for each optimisation
+    session_id = str(uuid.uuid4())
     
     while MyAlgorithm.has_next():
+
         # run algorithm
         MyAlgorithm.next()
+        
         # read pymoo results into a df
         df = ReadResults(MyAlgorithm.result())
         df.columns = ['Gen','Pop'] + XKeys + FKeys + ['CV']
+        
         # fetch archived items as a json string to add into df
         for i,row in df.iterrows():
             archiveKey = GetArchiveKey(row[XKeys].to_list())
+            # commented below for cleaner output 
             df.loc[i,'Archive'] = json.dumps(archiveResults[archiveKey])
-            print(df.to_json())
         
         # flush to output result individually
         sys.stdout.flush()
-       
-        #add session_id and timestamp here
+        
+        # insert metadata for timestamp and session ID
         df.insert(loc=0, column='Timestamp', value = ts)
         df.insert(loc=0, column='Session_ID', value = session_id)
+        
+        # print json to front end
+        print(df.to_json())
+        with open('dfJSON.txt', 'w') as f:
+            f.write(df.to_json())
 
-        #from custom script DB.py
-        write_df(schemata="temporarydata", table="module_b_data", df=df)
+        # only push last generation of data to DB with custom script
+        last_df = df.loc[df['Gen'] == df['Gen'].max()]
+        write_df(schemata="temporarydata", table="module_bb_data", df = last_df)
 
 except Exception as e:
     print('Error during optimisation:',e)
