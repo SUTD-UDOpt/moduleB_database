@@ -6,6 +6,16 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const flash = require('express-flash')
 const session = require('express-session')
+const { Pool } = require('pg');
+
+// Create a new pool
+const pool = new Pool({
+    user: 'udopt',
+    host: '3.0.184.200',
+    database: 'udopt_db',
+    password: 'udopt',
+    port: 5432
+  });
 
 var stash = []
 
@@ -165,3 +175,19 @@ app.post('/api_python', (request,response) => {
         console.error(`Something is very wrong...`);
     }
 });
+
+//for database
+app.post('/get-data', async (req, res) => {
+    const sessionId = req.body.sessionId;
+    console.log("Received sessionId: ", sessionId);
+    // Connect to your database and execute the query
+    pool.query('SELECT * FROM temporarydata.module_bb_data WHERE "Session_ID" = $1;', [sessionId], (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ error: "An error occurred while querying the database in index.js!!" });
+        return;
+      }
+      console.log(results);
+      res.status(200).json(results.rows);
+    });
+  });

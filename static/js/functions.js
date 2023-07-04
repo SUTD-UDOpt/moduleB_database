@@ -1,3 +1,4 @@
+
 // Input Components
 document.getElementById("clearFilter").addEventListener("click", () => {
   clearEverything()
@@ -26,6 +27,27 @@ document.getElementById("finalResetButton").addEventListener("click", () => {
   document.getElementById("resetPrompt").style.display = "none"
   popup = false
 })
+
+//load session id
+document.getElementById('loadAction').addEventListener('click', function() {
+  var sessionId = document.getElementById('loadSession').value;
+  
+  console.log("Sent sessionId: ", sessionId); // For debugging: print it to the console.
+  fetch('/get-data',{
+    method: 'POST',
+    headers: {'Content-Type': 'application/json',},
+    body: JSON.stringify({ sessionId: sessionId }),
+  }).then(response => response.json())
+    .then(data =>{
+      console.log('Data:', data);
+    }).catch((error) =>{
+      console.error('Error:', error);
+    });
+  
+});
+
+//save session id
+
 
 // UI State Management Functions
 function toState0() {

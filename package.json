@@ -20,6 +20,7 @@
     "express-session": "^1.17.3",
     "nodemon": "^2.0.19",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "pg": "^8.11.1"
   }
 }
