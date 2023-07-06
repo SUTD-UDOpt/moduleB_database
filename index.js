@@ -183,13 +183,19 @@ app.post('/get-data', async (req, res) => {
     const sessionId = req.body.sessionId;
     console.log("Received sessionId: ", sessionId);
     // Connect to your database and execute the query
-    pool.query('SELECT * FROM temporarydata.module_bb_data WHERE "Session_ID" = $1;', [sessionId], (error, results) => {
-      if (error) {
-        console.log(error);
-        res.status(500).json({ error: "An error occurred while querying the database in index.js!!" });
-        return;
-      }
-      console.log(results);
-      res.status(200).json(results.rows);
+    const schema = process.env.DB_SCHEMA;
+    const table = process.env.DB_TABLE;
+    pool.query(`SELECT * FROM "${schema}"."${table}" WHERE "Session_ID" = $1;`, [sessionId], (error, results) => {
+        if (error) {
+            console.log(error);
+            res.status(500).json({ error: "An error occurred while querying the database in index.js!!" });
+            return;
+        }
+        // console.log(results);
+        // res.status(200).json(results.rows);
+        res.setHeader('Content-disposition', `attachment; filename=${sessionId}.json`);
+        res.setHeader('Content-type', 'application/json');
+        res.status(200).send(JSON.stringify(results.rows, null, 4));
+        console.log("Sent the data as a json file!");
     });
   });

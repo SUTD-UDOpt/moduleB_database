@@ -37,13 +37,23 @@ document.getElementById('loadAction').addEventListener('click', function() {
     method: 'POST',
     headers: {'Content-Type': 'application/json',},
     body: JSON.stringify({ sessionId: sessionId }),
-  }).then(response => response.json())
-    .then(data =>{
-      console.log('Data:', data);
-    }).catch((error) =>{
-      console.error('Error:', error);
-    });
-  
+  })
+  .then(response => response.blob())
+  .then(blob => {
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url
+    a.download = `${sessionId}.json`;
+    document.body.appendChild(a);
+    a.click(); // we need to append the element to the dom -> otherwise it will not work in firefox
+    a.remove(); //afterwards we remove the element again    
+  });
+  // .then(response => response.json())
+  // .then(data =>{
+  //     console.log('Data:', data);
+  //   }).catch((error) =>{
+  //     console.error('Error:', error);
+  //   });
 });
 
 //save session id
