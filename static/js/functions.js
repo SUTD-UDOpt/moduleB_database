@@ -48,12 +48,6 @@ document.getElementById('loadAction').addEventListener('click', function() {
     a.click(); // we need to append the element to the dom -> otherwise it will not work in firefox
     a.remove(); //afterwards we remove the element again    
   });
-  // .then(response => response.json())
-  // .then(data =>{
-  //     console.log('Data:', data);
-  //   }).catch((error) =>{
-  //     console.error('Error:', error);
-  //   });
 });
 
 //save session id
