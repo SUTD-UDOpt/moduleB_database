@@ -141,6 +141,9 @@ app.get('/api_getProgress', (request, response) => {
     }
 })
 
+//for the session ID
+let sessionId = '';
+
 // do something when a call to '/api_python' comes from client side.
 app.post('/api_python', (request,response) => {
     try{
@@ -149,25 +152,32 @@ app.post('/api_python', (request,response) => {
         python_process.stdout.on("data", function (data) {
             newsItems += data.toString();
             newsItems = newsItems.replace(/^\s+|\s+$/g, '')
-            console.log(newsItems + '*')
+            // console.log(newsItems + '*')
             console.log("slicer: " + newsItems.slice(newsItems.length - 3))
             if (newsItems.slice(newsItems.length - 2) == "}}"){
                 try {
                     var jsonParse = JSON.parse(newsItems);
-                    stash.push(jsonParse)
+                    stash.push(jsonParse);
                     newsItems = ""
                 } catch(error){
-                    console.log(error)
+                    console.log(error);
                 }
             }
             console.log(stash.length);
         });
 
         python_process.stdout.on("end", function () {
-            console.log("fin at " + stash.length)
+            console.log("fin at " + stash.length);
             if (stash.length > 0){
                 var data = stash.pop()
-                response.json({data:data})
+                // console.log(data);
+                response.json({data:data});
+                console.log(data.Session_ID); 
+                // get the session id
+                for (var key in data.Session_ID){
+                    sessionId = data.Session_ID[key];
+                }
+                console.log(sessionId);
             } else {
                 response.json({data:1})
             }
@@ -198,4 +208,9 @@ app.post('/get-data', async (req, res) => {
         res.status(200).send(JSON.stringify(results.rows, null, 4));
         console.log("Sent the data as a json file!");
     });
+  });
+
+//for getting session_id
+app.get('/get-session-id', (request, response) => {
+    response.json({ sessionId: sessionId });
   });

@@ -51,7 +51,21 @@ document.getElementById('loadAction').addEventListener('click', function() {
 });
 
 //save session id
-
+document.getElementById('saveAction').addEventListener('click', function(){
+  console.log("Save Session ID button is clicked!")
+  fetch('/get-session-id')
+    .then(response => response.json())
+    .then(data => {
+      if (data.sessionId !== ''){
+        alert(`Session ID: ${data.sessionId}`);
+      }else {
+        alert('Session ID is not available.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+});
 
 // UI State Management Functions
 function toState0() {
