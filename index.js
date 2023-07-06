@@ -7,14 +7,16 @@ const passport = require('passport');
 const flash = require('express-flash')
 const session = require('express-session')
 const { Pool } = require('pg');
+require('dotenv').config();
+
 
 // Create a new pool
 const pool = new Pool({
-    user: 'udopt',
-    host: '3.0.184.200',
-    database: 'udopt_db',
-    password: 'udopt',
-    port: 5432
+    user: process.env.PG_USER,
+    host: process.env.PG_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.PASSWORD,
+    port: process.env.PORT
   });
 
 var stash = []
