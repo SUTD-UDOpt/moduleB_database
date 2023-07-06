@@ -59,7 +59,7 @@ document.getElementById('saveAction').addEventListener('click', function(){
       if (data.sessionId !== ''){
         alert(`Session ID: ${data.sessionId}`);
       }else {
-        alert('Session ID is not available.');
+        alert('Session ID is not available, run an optimisation and try again');
       }
     })
     .catch(error => {
