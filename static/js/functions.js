@@ -67,6 +67,11 @@ document.getElementById('saveAction').addEventListener('click', function(){
     });
 });
 
+//for user to modify data
+document.getElementById('modifyAction').addEventListener('click', function(){
+  console.log("Modify button has been clicked!!")
+})
+
 // UI State Management Functions
 function toState0() {
     state = 0
