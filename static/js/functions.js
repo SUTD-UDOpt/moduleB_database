@@ -69,7 +69,32 @@ document.getElementById('saveAction').addEventListener('click', function(){
 
 //for user to modify data
 document.getElementById('modifyAction').addEventListener('click', function(){
-  console.log("Modify button has been clicked!!")
+  console.log("Modify button has been clicked!!");
+  // window.location.href ="/views/editor.html";
+  const mSID = document.getElementById('modify').value;
+  fetch('/modify-data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ mSID })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log('Response Data: ', data);
+    if (data.length === 0) {
+      console.error('Error: No data has been returned');
+      return;
+    }
+    //store the data on browser temporarily
+    localStorage.setItem('myData', JSON.stringify(data));
+    if (data.length != 0){
+      window.location.href ="/views/editor.html";
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  })
 })
 
 // UI State Management Functions

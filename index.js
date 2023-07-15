@@ -10,6 +10,7 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 
+
 // Create a new pool
 const pool = new Pool({
     user: process.env.PG_USER,
@@ -45,6 +46,7 @@ app.use(cors({origin:'http://localhost:3000', credentials : true}));
 
 // import libraries
 app.use('/static', express.static('./static'))
+app.use('/views', express.static('./views'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -214,3 +216,29 @@ app.post('/get-data', async (req, res) => {
 app.get('/get-session-id', (request, response) => {
     response.json({ sessionId: sessionId });
   });
+
+//for modifying data
+app.post('/modify-data', (req, res) => {
+    const mSID = req.body.mSID;
+    console.log("Received mSID on Modify-data: ", mSID);
+    console.log(req.body);
+
+    // Connect to your database and execute the query
+    const schema = process.env.DB_SCHEMA;
+    const table = process.env.DB_TABLE;
+    pool.query(`SELECT * FROM "${schema}"."${table}" WHERE "Session_ID" = $1;`, [mSID], (error, results) => {
+        if (error) {
+            console.log(error);
+            res.status(500).json({ error: "An error occurred while querying the database in index.js!!" });
+            console.log("Invalid session ID was provided.");
+            return;
+        }
+        // Send the results as JSON
+        if (results.rows.length === 0){
+            res.status(404).json({ error: "Invalid session ID. Please try again with a valid session ID." });
+        }else {
+            res.status(200).json(results.rows);
+            console.log("Sent the data as a JSON response from modify-data!");
+        }
+    });
+});

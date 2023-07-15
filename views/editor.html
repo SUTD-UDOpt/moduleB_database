@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- CodeMirror CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css">
+        <style>
+        .CodeMirror { border: 4px solid #eeeeee; height: auto; }
+        #submit-button {
+            display: block;
+            margin: 20px auto;
+        }
+        </style>
+    </head>
+    <body>
+        <p>Please make sure the JSON is properly formatted before submitting.</p>
+        <p id="sessionId"></p>
+        <button id="submit-button">Submit</button>
+        <textarea id="editor"></textarea>
+        <!-- CodeMirror JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/mode/javascript/javascript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js"></script>
+        <script src="../static/js/editor.js"></script>
+
+    </body>
+</html>
