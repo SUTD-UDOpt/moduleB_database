@@ -13,7 +13,18 @@
     </head>
     <body>
         <p>Please make sure the JSON is properly formatted before submitting.</p>
-        <p id="sessionId"></p>
+        <p id="currentSessionId"></p>
+        <p id="prevName"></p>
+
+        <form id="nameForm">
+            <label for="newName">New name for the modified data:</label>
+            <input type="text" id="newName">
+            <input type="submit" value="Confirm" style="padding: 5px 10px;">
+        </form>
+
+        <p>New Session ID will be automatically generated.</p>
+        <p id="newSessionId"></p>
+
         <button id="submit-button">Submit</button>
         <textarea id="editor"></textarea>
         <!-- CodeMirror JavaScript -->

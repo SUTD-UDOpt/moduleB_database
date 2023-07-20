@@ -7,8 +7,8 @@ const passport = require('passport');
 const flash = require('express-flash')
 const session = require('express-session')
 const { Pool } = require('pg');
+const bodyParser = require('body-parser');
 require('dotenv').config();
-
 
 
 // Create a new pool
@@ -20,7 +20,6 @@ const pool = new Pool({
     port: process.env.PORT
   });
 
-var stash = []
 
 //for testing/ single user password just store here can already
 const users = [
@@ -34,6 +33,8 @@ const users = [
     }
 ]
 
+var stash = []
+
 function getUserbyUsername(username){
     return users.find(user => user.username === username)
 }
@@ -43,6 +44,10 @@ const app = express();
 app.set('view-engine', 'ejs');
 app.listen(3000, () => console.log('http://localhost:3000'));
 app.use(cors({origin:'http://localhost:3000', credentials : true}));
+
+//bodyParser, for editor.js to send the edited data to index.js
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 // import libraries
 app.use('/static', express.static('./static'))
@@ -60,6 +65,7 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+
 
 //initialise passport
 const initializePassport = require('./static/controllers/passport-config');
@@ -223,7 +229,7 @@ app.post('/modify-data', (req, res) => {
     console.log("Received mSID on Modify-data: ", mSID);
     console.log(req.body);
 
-    // Connect to your database and execute the query
+    // Connect to database and execute the query
     const schema = process.env.DB_SCHEMA;
     const table = process.env.DB_TABLE;
     pool.query(`SELECT * FROM "${schema}"."${table}" WHERE "Session_ID" = $1;`, [mSID], (error, results) => {
@@ -241,4 +247,40 @@ app.post('/modify-data', (req, res) => {
             console.log("Sent the data as a JSON response from modify-data!");
         }
     });
+});
+
+//for user to submit edited data from editor
+app.post('/submit-edited-data', async (req, res) => {
+    const updatedData = req.body;
+    console.log("Received updated data: ", updatedData);
+
+    // Connect to database and execute the query
+    const schema = process.env.DB_SCHEMA;
+    const table = process.env.DB_TABLE;
+
+    // the query
+    let query = `INSERT INTO ${schema}.${table} ("Session_ID", "Timestamp", "Name", "Gen", "Pop", "BKeyXScale", "BKeyYScale", "GridAngle", 
+        "GridSpacing", "ParcelStoreyScale","TotalViewObstruction", "MeanEWAspectRatio", "CV", "Archive") VALUES`;
+    
+    // for each row of data, add to the query
+    updatedData.forEach((item, index) => {
+        query += `('${item.Session_ID}', '${item.Timestamp}', '${item.Name}','${item.Gen}', '${item.Pop}', '${item.BKeyXScale}',
+        '${item.BKeyYScale}', '${item.GridAngle}', '${item.GridSpacing}', '${item.ParcelStoreyScale}',
+        '${item.TotalViewObstruction}', '${item.MeanEWAspectRatio}', '${item.CV}', '${JSON.stringify(item.Archive)}')`;
+
+        // add a comma after each item, except for the last one
+        if (index < updatedData.length - 1){
+            query += ",";
+        }
+    });
+    try{
+        // execute the query
+        const response = await pool.query(query);
+        console.log('Successfully uploaded new data to database.');
+        res.send('Successfully updated database with new data.');
+
+    }catch(e){
+        console.error('Error executing query', e.stack);
+        res.status(500).send('Error executing query');
+    }
 });
