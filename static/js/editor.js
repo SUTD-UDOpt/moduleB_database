@@ -1,7 +1,9 @@
 // session_id placeholder
-var sessionId = '';
 var editor;
+var sessionId = '';
 var newSessionId = '';
+var timestamp = ''
+var newTimestamp = ''
 
 //setting up editor and passing data
 window.onload = function() {
@@ -14,17 +16,21 @@ window.onload = function() {
     // retrieve the data from browser localStorage
     var myData = JSON.parse(localStorage.getItem('myData'));
     if (myData) {
-        if (myData[0]["Session_ID"]){
+        if (myData[0]["Session_ID"] && myData[0]["Timestamp"]){
             var sessionId = myData[0]["Session_ID"];
+            var timestamp = myData[0]["Timestamp"];
+
         }
         console.log("Session ID in editor.js -->  ", sessionId);
+        console.log("Timestamp in editor.js -->  ", timestamp);
         //displaying sessionId on editor.html
         document.getElementById('sessionId').innerText = "Current Session ID: " + sessionId;
 
-        // create copy of the data w/o sid
+        // create copy of the data w/o sid and timestamp
         var myDataCopy = myData.map(function(obj){
             var objCopy = {...obj}; //create a copy of the obj
             delete objCopy["Session_ID"];
+            delete objCopy["Timestamp"];
             return objCopy;
         });
 
@@ -43,14 +49,19 @@ window.onload = function() {
             try{
                 // parse it as JSON
                 var currentData = JSON.parse(currentEditorValue);
+                //get new session_id and timestamp
+                newSessionId = uuidv4();
+                newTimestamp = moment().tz('Asia/Singapore').format('YYYY-MM-DD HH:mm:ssZ');
                 //add sessionId back
                 var updatedData = currentData.map(function(obj){
-                    var newObj = {"Session_ID": uuidv4(), ...obj}; //create a copy
+                    var newObj = {"Session_ID": newSessionId, "Timestamp": newTimestamp, ...obj}; //create a copy
                     return newObj;
                 });
                 // convert the updated data back to a string
                 var updatedDataAsString = JSON.stringify(updatedData, null, 2);
                 console.log(updatedDataAsString);
+                alert(`New SessionID is: ${newSessionId}`);
+                alert(`New Timestamp is: ${newTimestamp}`);
 
                 //TODO: do a POST query to the database  
             }catch(e){

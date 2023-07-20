@@ -120,7 +120,11 @@ try:
     MyAlgorithm.setup(MyProblem, termination=MyTermination, seed=random.randint(0, 2**10),save_history=True, verbose=False)
 
     # stringified timestamp for each optimisation
-    ts = dt.now(pytz.timezone("Singapore")).strftime("%Y-%m-%d %H-%M-%S") #default timezone utc
+    # ts = dt.now(pytz.timezone("Singapore")).strftime("%Y-%m-%d %H-%M-%S") #default timezone utc
+    sgt = pytz.timezone('Asia/Singapore')
+    now_sgt = dt.now(sgt)
+    ts = now_sgt.strftime("%Y-%m-%d %H:%M:%S%z")
+    ts = ts[:-2] + ':' + ts[-2:]
 
     # stringified uuid for each optimisation
     session_id = str(uuid.uuid4())
