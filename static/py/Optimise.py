@@ -25,6 +25,8 @@ try:
     from pymoo.termination import get_termination
     from pymoo.optimize import minimize
     from pymoo.util.ref_dirs import get_reference_directions
+    from dotenv import load_dotenv
+    import os
 
     # IMPORT COMPUTE AND SETUP FOR CLOUD USE
     import compute_rhino3d.Util
@@ -33,6 +35,20 @@ try:
     # IMPORT CUSTOM SCRIPTS
     from Utility import *
     from DB import *
+
+    # LOAD .ENV
+    load_dotenv()
+
+    # DB Set Up
+    db_user = os.getenv("PG_USER")
+    db_password = os.getenv("PASSWORD")
+    db_host = os.getenv("PG_HOST")
+    db_port = os.getenv("PORT")
+    db_name = os.getenv("DB_NAME")
+    db_schema = os.getenv("DB_SCHEMA")
+    db_table = os.getenv("DB_TABLE")
+
+
 
     ComputeURL="http://18.143.175.3:80/"
     ComputeKey="0hOfevzxs49OfbXDqyUx"
@@ -158,7 +174,7 @@ try:
 
         # only push last generation of data to DB with custom script
         last_df = df.loc[df['Gen'] == df['Gen'].max()]
-        write_df(schemata="temporarydata", table="module_bb_data", df = last_df)
+        write_df(schemata=db_schema, table=db_table, df = last_df)
 
 except Exception as e:
     print('Error during optimisation:',e)

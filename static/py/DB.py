@@ -3,17 +3,28 @@
 import psycopg2
 from sqlalchemy import create_engine
 import csv
+from dotenv import load_dotenv
+import os
 
+
+# set up DB .env var
+db_user = os.getenv("PG_USER")
+db_password = os.getenv("PASSWORD")
+db_host = os.getenv("PG_HOST")
+db_port = os.getenv("PORT")
+db_name = os.getenv("DB_NAME")
+db_schema = os.getenv("DB_SCHEMA")
+db_table = os.getenv("DB_TABLE")
 
 #function to create a connection instance to database
 def connect():
     try:
         connection = psycopg2.connect(
-            user = "udopt",
-            password = "udopt",
-            host = "3.0.184.200",
-            port = "5432",
-            database = "udopt_db"
+            user = db_user,
+            password = db_password,
+            host = db_host,
+            port = db_port,
+            database = db_name
         )
         return connection
     
@@ -54,18 +65,18 @@ def write_df(schemata, table, df):
 
 
 #############################################################################################################
-#Create a schema and table, just need to run once, not important, just for reference
+#Create a schema and table, just need to run once, not important, use in jupyter notebook when needed
 #UNCOMMENT TO CREATE NEW TABLE
 ##Modify this to create diff tables
 
 def create_temp_schema_and_table():
     try:
         connection = psycopg2.connect(
-            user = "udopt",
-            password = "udopt",
-            host = "3.0.184.200",
-            port = "5432",
-            database = "udopt_db"
+            user = db_user,
+            password = db_password,
+            host = db_host,
+            port = db_port,
+            database = db_name
         )
 
         cursor = connection.cursor()
